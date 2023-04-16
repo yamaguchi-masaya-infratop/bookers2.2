@@ -1,0 +1,9 @@
+<h1>Editing Book</h1>
+
+<%= form_with model: @book do |f| %>
+    <h4>Title</h4>
+    <p><%= f.text_field :title %></p>
+    <h4>Opinion</h4>
+    <p><%= f.text_area :body %></p>
+    <%= f.submit '保存' %>
+<% end %>

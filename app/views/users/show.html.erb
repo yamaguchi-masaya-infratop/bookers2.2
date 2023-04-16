@@ -1,6 +1,8 @@
 <div>
-    <h3><%= @user.name %></h3>
     <%= image_tag @user.get_profile_image(100,100) %>
+    <h3><%= @user.name %></h3>
+    <p><%= @user.introduction %></p>
+    <p><%= link_to "Edit User", edit_user_path(@user) %></p>
 </div>
 
 <% @books.each do |book| %>
@@ -8,7 +10,7 @@
     <%= link_to book_path(book.id) do %>
         <%= image_tag book.user.get_profile_image(100,100) %>
     <% end %>
-    <p>Title: <%= @book.title %></p>
-    <p>Opinion: <%= @book.body %></p>
+    <p>Title: <%= book.title %></p>
+    <p>Opinion: <%= book.body %></p>
 </div>
 <% end %>
