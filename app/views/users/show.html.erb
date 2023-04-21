@@ -1,4 +1,15 @@
 <div>
+    <% if @book.errors.any? %>
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this obj from being saved:</h2>
+      <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+</div>
+
+<div>
     <h1>User info</h1>
     <%= image_tag @user.get_profile_image(100,100) %>
     <h3><%= @user.name %></h3>
