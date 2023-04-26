@@ -1,3 +1,15 @@
+<div>
+    <p><%= flash[:notice] %></p>
+    <% if @book.errors.any? %>
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this obj from being saved:</h2>
+      <ul>
+        <% @book.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    <% end %>
+</div>
+
 <h1>Editing Book</h1>
 
 <%= form_with model: @book do |f| %>
