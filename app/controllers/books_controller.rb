@@ -36,7 +36,6 @@ class BooksController < ApplicationController
       redirect_to book_path(@book.id)
     else
       flash[:notice] = "Edit was unsuccessful"
-      @book = Book.find(params[:id])
       render :edit
     end
   end

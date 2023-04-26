@@ -1,8 +1,9 @@
 <div>
-    <% if @book.errors.any? %>
-      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this obj from being saved:</h2>
+    <p><%= flash[:notice] %></p>
+    <% if @user.errors.any? %>
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this obj from being saved:</h2>
       <ul>
-        <% @book.errors.full_messages.each do |message| %>
+        <% @user.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>

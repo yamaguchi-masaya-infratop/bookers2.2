@@ -24,7 +24,6 @@ class UsersController < ApplicationController
       redirect_to user_path(@user.id)
     else
       flash[:notice] = "Edit was unsuccessful"
-      @user = User.find(params[:id])
       render :edit
     end
   end
