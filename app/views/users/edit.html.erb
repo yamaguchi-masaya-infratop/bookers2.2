@@ -1,5 +1,5 @@
 <div>
-    <p id="notice"></p>
+    <p id="notice"><%= flash[:notice] %></p>
     <% if @user.errors.any? %>
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this obj from being saved:</h2>
       <ul>
