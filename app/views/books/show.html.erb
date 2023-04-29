@@ -65,9 +65,60 @@
                             <%= link_to "Destroy", book_path(@book), method: :delete, "data-confirm"=>"Are you sure you want to delete this?", class: "btn btn-sm btn-danger destroy_book_76999" %>
                         </td>
                         <% end %>
+                        <td>
+                            <% if @book.favorited_by?(current_user) %>
+                            <p>
+                                <%= link_to book_favorites_path(@book), method: :delete, style: "color:red;" do %>
+                                    <svg class="fas fa-heart svg-inline--fa fa-user-cog fa-w-20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                                    <%= @book.favorites.count %> 
+                                <% end %>
+                            </p>
+                            <% else %>
+                            <p>
+                                <%= link_to book_favorites_path(@book), method: :post do %>
+                                    <svg class="fas fa-heart svg-inline--fa fa-user-cog fa-w-20" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="heart" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                                    <%= @book.favorites.count %> 
+                                <% end %>
+                            </p>
+                            <% end %>
+                        </td>
+                        <td>
+                            <p>コメント件数：<%= @book.book_comments.count %></p>
+                        </td>
                     </tr>
                 </tbody>
             </table>
+            <h2>Comments</h2>
+            <table class="table">
+                <tbody>
+                    <% @book.book_comments.each do |book_comment| %>
+                    <tr>
+                        <td>
+                            <%= link_to user_path(@book.user.id) do %>
+                                <%= image_tag book_comment.user.get_profile_image(100,100) %>
+                                <br>
+                                <%= book_comment.user.name %>
+                            <% end %>
+                        </td>
+                        <td>
+                            <%= book_comment.comment %>
+                        </td>
+                        <td>
+                            <% if book_comment.user == current_user %>
+                                <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete , "data-confirm"=>"Are you sure you want to delete this?", class: "btn btn-sm btn-danger destroy_book_76999" %>
+                            <% end %>
+                        </td>
+                    </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <div class="row">
+                <%= form_with model: [@book, @book_comment] do |f| %>
+                    <%= f.text_area :comment, placeholder: "コメントをここに", :size=>"100%" %>
+                    <br>
+                    <%= f.submit "送信する", class: "btn btn-sm btn-success" %>
+                <% end %>
+            </div>
         </div>
     </div>
 </div>
